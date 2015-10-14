@@ -1,0 +1,16 @@
+{
+    "name": "Froler314/Enum",
+    "description": "Enum lib",
+    "authors": [
+        {
+            "name": "Alexander Dmitriev",
+            "email": "alex@aadmitriev.ru"
+        }
+    ],
+    "require-dev": {
+        "phpunit/phpunit": "~4.8"
+    },
+    "autoload": {
+        "psr-4": {"Enum\\": "src/Enum"}
+    }
+}
