@@ -31,11 +31,9 @@ abstract class Enum implements EnumInterface
      */
     private static function initKeysIfNotInited()
     {
-        $className = get_called_class();
-
-        if (empty(self::$initedClassNames[$className])) {
+        if (empty(self::$initedClassNames[static::class])) {
             static::initKeys();
-            self::$initedClassNames[$className] = true;
+            self::$initedClassNames[static::class] = true;
         }
     }
 
@@ -44,13 +42,11 @@ abstract class Enum implements EnumInterface
      */
     public static function addEnumItem(Enum $instance)
     {
-        $className = get_called_class();
-
-        if (!isset(self::$instances[$className])) {
-            self::$instances[$className] = [];
+        if (!isset(self::$instances[static::class])) {
+            self::$instances[static::class] = [];
         }
 
-        self::$instances[$className][$instance->getId()] = $instance;
+        self::$instances[static::class][$instance->getId()] = $instance;
     }
 
     /**
@@ -63,12 +59,11 @@ abstract class Enum implements EnumInterface
     {
         self::initKeysIfNotInited();
 
-        $className = get_called_class();
-        if (!isset(self::$instances[$className])) {
-            throw new EnumException("No instances was initialized for Enum class '{$className}'");
+        if (!isset(self::$instances[static::class])) {
+            throw new EnumException(sprintf('No instances was initialized for Enum class "%s"', static::class));
         }
 
-        return self::$instances[$className];
+        return self::$instances[static::class];
     }
 
     /**
@@ -83,12 +78,11 @@ abstract class Enum implements EnumInterface
 
         self::initKeysIfNotInited();
 
-        $className = get_called_class();
-        if (!isset(self::$instances[$className][$id])) {
-            throw new EnumException("No Enum instance with id '{$id}' for Enum class '{$className}'");
+        if (!isset(self::$instances[static::class][$id])) {
+            throw new EnumException(sprintf('No Enum instance with id "%s" for Enum class "%s"', $id, static::class));
         }
 
-        return self::$instances[$className][$id];
+        return self::$instances[static::class][$id];
     }
 
     /**
