@@ -10,7 +10,7 @@ namespace Enum;
  * Class SimpleEnum
  * @package Enum
  */
-abstract class ScalarEnum extends Enum
+abstract class BaseEnum extends Enum
 {
     /**
      * @var mixed
