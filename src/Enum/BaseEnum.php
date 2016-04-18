@@ -82,6 +82,6 @@ abstract class BaseEnum extends Enum
      */
     public function __toString()
     {
-        return $this->getValue();
+        return (string) $this->getValue();
     }
 }
