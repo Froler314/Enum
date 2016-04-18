@@ -76,4 +76,12 @@ abstract class BaseEnum extends Enum
     {
         return $this->value;
     }
+
+    /**
+     * @return mixed
+     */
+    public function __toString()
+    {
+        return $this->getValue();
+    }
 }
