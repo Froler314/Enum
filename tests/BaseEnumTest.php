@@ -7,7 +7,7 @@ class TestBaseEnum extends BaseEnum {
     const CONSTANT_2 = 2;
 }
 
-class ScalarEnumTest extends \PHPUnit_Framework_TestCase
+class BaseEnumTest extends \PHPUnit_Framework_TestCase
 {
     public function testGetKeys()
     {
@@ -25,5 +25,11 @@ class ScalarEnumTest extends \PHPUnit_Framework_TestCase
     {
         self::assertEquals(1, TestBaseEnum::toArray()['CONSTANT_1']);
         self::assertEquals(2, TestBaseEnum::toArray()['CONSTANT_2']);
+    }
+
+    public function testGetInstance()
+    {
+        self::assertInstanceOf(TestBaseEnum::class, TestBaseEnum::getInstance(TestBaseEnum::CONSTANT_1));
+        self::assertInstanceOf(TestBaseEnum::class, TestBaseEnum::getInstance('CONSTANT_2'));
     }
 }

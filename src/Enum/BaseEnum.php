@@ -16,6 +16,10 @@ abstract class BaseEnum extends Enum
      * @var mixed
      */
     protected $value;
+    /**
+     * @var array
+     */
+    private static $instancesByValues = [];
 
     /**
      * @inheritdoc
@@ -25,6 +29,34 @@ abstract class BaseEnum extends Enum
         foreach ((new \ReflectionClass(static::class))->getConstants() as $constantName => $constantValue) {
             self::addEnumItem(new static($constantName, $constantValue));
         }
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public static function addEnumItem(Enum $instance)
+    {
+        if (!isset(self::$instancesByValues[static::class])) {
+            self::$instancesByValues[static::class] = [];
+        }
+
+        if ($instance instanceof BaseEnum) {
+            self::$instancesByValues[static::class][$instance->getValue()] = $instance;
+        }
+
+        parent::addEnumItem($instance);
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public static function getInstance($idOrValue)
+    {
+        if (isset(self::$instancesByValues[static::class][$idOrValue])) {
+            return self::$instancesByValues[static::class][$idOrValue];
+        }
+
+        return parent::getInstance($idOrValue);
     }
 
     /**
