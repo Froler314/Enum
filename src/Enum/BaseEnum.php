@@ -52,11 +52,15 @@ abstract class BaseEnum extends Enum
      */
     public static function getInstance($idOrValue)
     {
-        if (isset(self::$instancesByValues[static::class][$idOrValue])) {
-            return self::$instancesByValues[static::class][$idOrValue];
-        }
+        try {
+            return parent::getInstance($idOrValue);
+        } catch (EnumException $e) {
+            if (isset(self::$instancesByValues[static::class][$idOrValue])) {
+                return self::$instancesByValues[static::class][$idOrValue];
+            }
 
-        return parent::getInstance($idOrValue);
+            throw $e;
+        }
     }
 
     /**
