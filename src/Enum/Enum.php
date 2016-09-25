@@ -1,112 +1,125 @@
 <?php
 /**
  * @author Alexander Dmitriev <alex@aadmitriev.ru>
- * @date 14.10.15
+ * @date 06.04.16
  */
 
 namespace Enum;
 
 /**
- * Class Enum
+ * Class SimpleEnum
  * @package Enum
  */
-abstract class Enum implements EnumInterface
+abstract class Enum extends AbstractEnum
 {
 
     /**
-     * @var Enum[][]
-     */
-    private static $instances = [];
-    /**
      * @var array
      */
-    private static $initedClassNames = [];
+    static private $instancesByValues = [];
     /**
      * @var mixed
      */
-    protected $id;
+    protected $value;
 
     /**
-     * @return void
+     * @inheritdoc
      */
-    private static function initKeysIfNotInited()
+    static public function initKeys()
     {
-        if (empty(self::$initedClassNames[static::class])) {
-            static::initKeys();
-            self::$initedClassNames[static::class] = true;
+        foreach ((new \ReflectionClass(static::class))->getConstants() as $constantName => $constantValue) {
+            self::addEnumItem(new static($constantName, $constantValue));
         }
     }
 
     /**
      * @inheritdoc
      */
-    public static function addEnumItem(Enum $instance)
+    static public function addEnumItem(EnumInterface $instance)
     {
-        if (!isset(self::$instances[static::class])) {
-            self::$instances[static::class] = [];
+        if (!isset(self::$instancesByValues[static::class])) {
+            self::$instancesByValues[static::class] = [];
         }
 
-        self::$instances[static::class][$instance->getId()] = $instance;
+        if ($instance instanceof Enum) {
+            self::$instancesByValues[static::class][$instance->getValue()] = $instance;
+        }
+
+        parent::addEnumItem($instance);
     }
 
     /**
-     * Получение всех объектов Enum типа того класса, от которого вызван метод с использованием их ID (ключей) в качестве ключей массива
-     *
-     * @return static[]
+     * @inheritdoc
+     */
+    static public function getInstance($idOrValue)
+    {
+        try {
+            return parent::getInstance($idOrValue);
+        } catch (EnumException $e) {
+            if (isset(self::$instancesByValues[static::class][$idOrValue])) {
+                return self::$instancesByValues[static::class][$idOrValue];
+            }
+
+            throw $e;
+        }
+    }
+
+    /**
+     * @return array
+     */
+    static public function getKeys()
+    {
+        return array_keys(self::toArray());
+    }
+
+    /**
+     * @return array
+     */
+    static public function getValues()
+    {
+        return array_values(self::toArray());
+    }
+
+    /**
+     * @return array
      * @throws EnumException
      */
-    public static function getInstances()
+    static public function toArray()
     {
-        self::initKeysIfNotInited();
-
-        if (!isset(self::$instances[static::class])) {
-            throw new EnumException(sprintf('No instances was initialized for Enum class "%s"', static::class));
+        $array = [];
+        foreach (self::getInstances() as $instance) {
+            $array[$instance->getId()] = $instance->value;
         }
 
-        return self::$instances[static::class];
+        return $array;
     }
 
     /**
-     * Получение конкретного объекта Enum типа того класса, от которого вызван метод, по его ID (ключу)
-     *
+     * @return mixed
+     */
+    public function getValue()
+    {
+        return $this->value;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function __toString()
+    {
+        return (string)$this->getValue();
+    }
+
+    /**
+     * ScalarEnum constructor.
      * @param mixed $id
-     * @return static
-     * @throws EnumException
+     * @param mixed $value
      */
-    public static function getInstance($id)
+    protected function __construct($id, $value)
     {
+        $this->value = $value;
 
-        self::initKeysIfNotInited();
-
-        if (!isset(self::$instances[static::class][$id])) {
-            throw new EnumException(sprintf('No Enum instance with id "%s" for Enum class "%s"', $id, static::class));
-        }
-
-        return self::$instances[static::class][$id];
-    }
-
-    /**
-     * @param mixed $id
-     */
-    protected function __construct($id)
-    {
-        $this->id = $id;
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function equals(Enum $item)
-    {
-        return ($item instanceof self) && $item->getId() == $this->getId();
+        parent::__construct($id);
     }
 
 }

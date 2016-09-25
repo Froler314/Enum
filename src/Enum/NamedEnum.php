@@ -7,10 +7,10 @@
 namespace Enum;
 
 /**
- * Class EnumWithName
+ * Class NamedEnum
  * @package Enum
  */
-abstract class NamedEnum extends Enum
+abstract class NamedEnum extends AbstractEnum
 {
 
     /**

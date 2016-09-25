@@ -34,10 +34,10 @@ interface EnumInterface
      *
      *      self::addEnumItem(new SomeEnumClass('foo', 'bar'));
      *
-     * @param Enum $enumItem
+     * @param EnumInterface $enumItem
      * @return void
      */
-    public static function addEnumItem(Enum $enumItem);
+    public static function addEnumItem(EnumInterface $enumItem);
 
     /**
      * @return mixed
@@ -45,9 +45,9 @@ interface EnumInterface
     public function getId();
 
     /**
-     * @param Enum $enumItem
+     * @param EnumInterface $enumItem
      * @return mixed
      */
-    public function equals(Enum $enumItem);
+    public function equals(EnumInterface $enumItem);
 
 }
