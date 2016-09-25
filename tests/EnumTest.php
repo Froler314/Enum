@@ -2,11 +2,6 @@
 
 use Enum\Enum;
 
-class TestEnum extends Enum {
-    const CONSTANT_1 = 1;
-    const CONSTANT_2 = 2;
-}
-
 class EnumTest extends \PHPUnit_Framework_TestCase
 {
     public function testGetKeys()
@@ -32,4 +27,9 @@ class EnumTest extends \PHPUnit_Framework_TestCase
         self::assertInstanceOf(TestEnum::class, TestEnum::getInstance(TestEnum::CONSTANT_1));
         self::assertInstanceOf(TestEnum::class, TestEnum::getInstance('CONSTANT_2'));
     }
+}
+
+class TestEnum extends Enum {
+    const CONSTANT_1 = 1;
+    const CONSTANT_2 = 2;
 }
