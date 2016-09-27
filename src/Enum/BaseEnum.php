@@ -9,6 +9,7 @@ namespace Enum;
 /**
  * Class SimpleEnum
  * @package Enum
+ * @deprecated deleted in v1.0.0
  */
 abstract class BaseEnum extends Enum
 {

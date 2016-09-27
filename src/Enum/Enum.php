@@ -9,6 +9,7 @@ namespace Enum;
 /**
  * Class Enum
  * @package Enum
+ * @deprecated deleted in v1.0.0
  */
 abstract class Enum implements EnumInterface
 {
