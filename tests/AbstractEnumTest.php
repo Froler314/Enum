@@ -11,11 +11,19 @@ class AbstractEnumTest extends \PHPUnit_Framework_TestCase
         self::assertInstanceOf(TestAbstractEnum::class, TestAbstractEnum::getInstance(2));
         self::assertEquals(2, TestAbstractEnum::getInstance(2)->getId());
     }
+
     public function testGetInstances()
     {
         self::assertCount(2, TestAbstractEnum::getInstances());
         self::assertEquals(1, TestAbstractEnum::getInstances()[1]->getId());
         self::assertEquals(2, TestAbstractEnum::getInstances()[2]->getId());
+    }
+
+    public function testGetKeys()
+    {
+        self::assertCount(2, TestAbstractEnum::getKeys());
+        self::assertEquals(1, TestAbstractEnum::getKeys()[0]);
+        self::assertEquals(2, TestAbstractEnum::getKeys()[1]);
     }
 }
 

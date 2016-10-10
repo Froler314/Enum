@@ -67,14 +67,6 @@ abstract class Enum extends AbstractEnum
     /**
      * @return array
      */
-    static public function getKeys()
-    {
-        return array_keys(self::toArray());
-    }
-
-    /**
-     * @return array
-     */
     static public function getValues()
     {
         return array_values(self::toArray());

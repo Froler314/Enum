@@ -11,6 +11,7 @@ class NamedEnumTest extends \PHPUnit_Framework_TestCase
         self::assertInstanceOf(TestNamedEnum::class, TestNamedEnum::getInstance(2));
         self::assertEquals('two', TestNamedEnum::getInstance(2)->getName());
     }
+
     public function testGetInstances()
     {
         self::assertCount(2, TestNamedEnum::getInstances());

@@ -86,6 +86,14 @@ abstract class AbstractEnum implements EnumInterface
     }
 
     /**
+     * @return array
+     */
+    public static function getKeys()
+    {
+        return array_keys(self::getInstances());
+    }
+
+    /**
      * @param mixed $id
      */
     protected function __construct($id)
