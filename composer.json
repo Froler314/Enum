@@ -1,6 +1,8 @@
 {
     "name": "froler314/enum",
     "description": "Enum lib",
+    "type": "library",
+    "license": "MIT",
     "authors": [
         {
             "name": "Alexander Dmitriev",
