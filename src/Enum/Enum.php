@@ -1,27 +1,26 @@
 <?php
+
 declare(strict_types=1);
-/**
- * @author Alexander Dmitriev <alex@aadmitriev.ru>
- * @date 15.08.18
- */
 
 namespace Enum;
+
+use ReflectionClass;
+use Stringable;
 
 /**
  * Class Enum
  * @package Enum
+ * @author Alexander Dmitriev <alex@aadmitriev.ru>
+ * @date 15.08.18
  */
-abstract class Enum
+abstract class Enum implements Stringable
 {
     /**
      * @var Enum[][]
      */
-    private static $instances = [];
+    private static array $instances = [];
 
-    /**
-     * @var mixed
-     */
-    private $value;
+    private mixed $value;
 
     /**
      * Return enum objects as hash map with value as its indexes
@@ -42,7 +41,7 @@ abstract class Enum
      * @return static
      * @throws EnumException
      */
-    public static function getInstance($value): self
+    public static function getInstance(mixed $value): static
     {
         $instances = self::getInstances();
 
@@ -62,9 +61,14 @@ abstract class Enum
      */
     public static function getValues(): array
     {
-        return array_values(array_map(function (Enum $enum) {
-            return $enum->getValue();
-        }, self::getInstances()));
+        return array_values(
+            array_map(
+                function (Enum $enum) {
+                    return $enum->getValue();
+                },
+                self::getInstances()
+            )
+        );
     }
 
     /**
@@ -77,49 +81,32 @@ abstract class Enum
         return array_combine(self::getValues(), self::getValues());
     }
 
-    /**
-     * @return mixed
-     */
-    public function getValue()
+    public function getValue(): mixed
     {
         return $this->value;
     }
 
-    /**
-     * @param Enum $item
-     * @return bool
-     */
     public function equals(Enum $item): bool
     {
         return $item instanceof static && $item->value === $this->value;
     }
 
-    /**
-     * @return string
-     */
     public function __toString(): string
     {
-        return (string) $this->value;
+        return (string)$this->value;
     }
 
-    /**
-     * Enum constructor.
-     * @param mixed $value
-     */
-    protected function __construct($value)
+    protected function __construct(mixed $value)
     {
         $this->value = $value;
     }
 
-    /**
-     * @return void
-     */
     private static function initKeysIfNotInited(): void
     {
         if (empty(self::$instances[static::class])) {
             self::$instances[static::class] = [];
 
-            foreach ((new \ReflectionClass(static::class))->getConstants() as $constantValue) {
+            foreach ((new ReflectionClass(static::class))->getConstants() as $constantValue) {
                 self::$instances[static::class][$constantValue] = new static($constantValue);
             }
         }

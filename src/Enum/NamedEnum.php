@@ -1,45 +1,31 @@
 <?php
+
 declare(strict_types=1);
-/**
- * @author Alexander Dmitriev <alex@aadmitriev.ru>
- * @date 15.08.18
- */
 
 namespace Enum;
 
 /**
  * Class NamedEnum
  * @package Enum
+ * @author Alexander Dmitriev <alex@aadmitriev.ru>
+ * @date 15.08.18
  */
 abstract class NamedEnum extends Enum
 {
-    /**
-     * @var string
-     */
-    private $name;
+    private string $name;
 
-    /**
-     * @param mixed $value
-     * @param string $name
-     */
-    protected function __construct($value, string $name)
+    protected function __construct(mixed $value, string $name)
     {
         $this->name = $name;
 
         parent::__construct($value);
     }
 
-    /**
-     * @return string
-     */
     public function getName(): string
     {
         return $this->name;
     }
 
-    /**
-     * @return string
-     */
     public function __toString(): string
     {
         return $this->name;
