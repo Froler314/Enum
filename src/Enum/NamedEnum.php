@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Enum;
 
 /**
+ * @deprecated will be removed since v4.0
  * Class NamedEnum
  * @package Enum
  * @author Alexander Dmitriev <alex@aadmitriev.ru>
