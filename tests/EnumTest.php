@@ -3,18 +3,24 @@
 declare(strict_types=1);
 
 use Enum\Enum;
+use Enum\EnumException;
 use Enum\MagicStaticCallEnum;
 use PHPUnit\Framework\TestCase;
 
 /**
  * @method static self valueA()
  * @method static self valueB()
+ * @method static self capsValue()
+ * @method static self camelCaseValue()
+ * @method static self unknownValue()
  */
 class TestEnum extends Enum {
     use MagicStaticCallEnum;
 
     public const CONSTANT_A = 'value_a';
     public const CONSTANT_B = 'value_b';
+    public const CONSTANT_C = 'CAPS_VALUE';
+    public const CONSTANT_D = 'camelCaseValue';
 }
 
 class EnumTest extends TestCase
@@ -62,7 +68,12 @@ class EnumTest extends TestCase
 
     public function testMagicStaticCall(): void
     {
-        self::assertEquals(TestEnum::CONSTANT_A, TestEnum::valueA());
-        self::assertEquals(TestEnum::CONSTANT_B, TestEnum::valueB());
+        self::assertEquals(TestEnum::CONSTANT_A, TestEnum::valueA()->getValue());
+        self::assertEquals(TestEnum::CONSTANT_B, TestEnum::valueB()->getValue());
+        self::assertEquals(TestEnum::CONSTANT_C, TestEnum::capsValue()->getValue());
+        self::assertEquals(TestEnum::CONSTANT_D, TestEnum::camelCaseValue()->getValue());
+
+        $this->expectException(EnumException::class);
+        TestEnum::unknownValue();
     }
 }
