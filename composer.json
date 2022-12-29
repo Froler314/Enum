@@ -1,21 +1,23 @@
 {
-    "name": "froler314/enum",
-    "description": "Enum lib",
-    "type": "library",
-    "license": "MIT",
-    "authors": [
-        {
-            "name": "Alexander Dmitriev",
-            "email": "alex@aadmitriev.ru"
-        }
-    ],
-    "require": {
-        "php": "~8.0"
-    },
-    "require-dev": {
-        "phpunit/phpunit": "^8.5"
-    },
-    "autoload": {
-        "psr-4": {"Enum\\": "src/Enum"}
+  "name": "froler314/enum",
+  "description": "Enum lib",
+  "type": "library",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Alexander Dmitriev",
+      "email": "alex@aadmitriev.ru"
     }
+  ],
+  "require": {
+    "php": ">=7.4"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^8.5"
+  },
+  "autoload": {
+    "psr-4": {
+      "Enum\\": "src/Enum"
+    }
+  }
 }
