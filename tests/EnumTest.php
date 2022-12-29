@@ -58,7 +58,9 @@ class EnumTest extends TestCase
     public function testEquals(): void
     {
         self::assertTrue(TestEnum::getInstance(TestEnum::CONSTANT_A)->equals(TestEnum::getInstance(TestEnum::CONSTANT_A)));
+        self::assertSame(TestEnum::getInstance(TestEnum::CONSTANT_A), TestEnum::getInstance('value_a'));
         self::assertFalse(TestEnum::getInstance(TestEnum::CONSTANT_A)->equals(TestEnum::getInstance(TestEnum::CONSTANT_B)));
+        self::assertNotSame(TestEnum::getInstance(TestEnum::CONSTANT_A), TestEnum::getInstance('value_b'));
     }
 
     public function testToString(): void
