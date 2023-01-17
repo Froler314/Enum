@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Enum;
 
 use ReflectionClass;
-use Stringable;
 
 /**
  * Class Enum
@@ -20,7 +19,10 @@ abstract class Enum implements Stringable
      */
     private static array $instances = [];
 
-    private mixed $value;
+    /**
+     * @var mixed
+     */
+    private $value;
 
     /**
      * Return enum objects as hash map with value as its indexes
@@ -41,7 +43,7 @@ abstract class Enum implements Stringable
      * @return static
      * @throws EnumException
      */
-    public static function getInstance(mixed $value): static
+    public static function getInstance($value): self
     {
         $instances = self::getInstances();
 
@@ -81,7 +83,10 @@ abstract class Enum implements Stringable
         return array_combine(self::getValues(), self::getValues());
     }
 
-    public function getValue(): mixed
+    /**
+     * @return mixed
+     */
+    public function getValue()
     {
         return $this->value;
     }
@@ -96,7 +101,10 @@ abstract class Enum implements Stringable
         return (string)$this->value;
     }
 
-    protected function __construct(mixed $value)
+    /**
+     * @param mixed $value
+     */
+    protected function __construct($value)
     {
         $this->value = $value;
     }
