@@ -12,6 +12,7 @@ use PHPUnit\Framework\TestCase;
  * @method static self valueB()
  * @method static self capsValue()
  * @method static self camelCaseValue()
+ * @method static self constantE()
  * @method static self unknownValue()
  */
 class TestEnum extends Enum {
@@ -21,6 +22,7 @@ class TestEnum extends Enum {
     public const CONSTANT_B = 'value_b';
     public const CONSTANT_C = 'CAPS_VALUE';
     public const CONSTANT_D = 'camelCaseValue';
+    public const CONSTANT_E = 1;
 }
 
 class EnumTest extends TestCase
@@ -74,6 +76,7 @@ class EnumTest extends TestCase
         self::assertEquals(TestEnum::CONSTANT_B, TestEnum::valueB()->getValue());
         self::assertEquals(TestEnum::CONSTANT_C, TestEnum::capsValue()->getValue());
         self::assertEquals(TestEnum::CONSTANT_D, TestEnum::camelCaseValue()->getValue());
+        self::assertEquals(TestEnum::CONSTANT_E, TestEnum::constantE()->getValue());
 
         $this->expectException(EnumException::class);
         TestEnum::unknownValue();
