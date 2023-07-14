@@ -4,9 +4,6 @@ declare(strict_types=1);
 
 namespace Enum;
 
-use function constant;
-use function defined;
-
 /**
  * Trait MagicStaticCallEnum
  * @package Enum
@@ -27,8 +24,8 @@ trait MagicStaticCallEnum
             ?? static::getInstances()[$name]
             ?? null;
 
-        if (defined(static::class . '::' . strtoupper($convertedName))) {
-            $instance = static::getInstance(constant(static::class . '::' . strtoupper($convertedName)));
+        if ($instance === null && \defined(static::class . '::' . strtoupper($convertedName))) {
+            $instance = static::getInstance(\constant(static::class . '::' . strtoupper($convertedName)));
         }
 
         if ($instance === null) {
