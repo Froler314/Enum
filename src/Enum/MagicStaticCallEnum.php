@@ -8,7 +8,7 @@ namespace Enum;
  * Trait MagicStaticCallEnum
  * @package Enum
  * @author Alexander Dmitriev <alex@aadmitriev.ru>
- * @date 13.12.19
+ * @since 13.12.19
  */
 trait MagicStaticCallEnum
 {

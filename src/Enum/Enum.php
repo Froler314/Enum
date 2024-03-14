@@ -10,7 +10,7 @@ use ReflectionClass;
  * Class Enum
  * @package Enum
  * @author Alexander Dmitriev <alex@aadmitriev.ru>
- * @date 15.08.18
+ * @since 15.08.18
  */
 abstract class Enum implements Stringable
 {
